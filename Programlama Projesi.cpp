@@ -1,44 +1,44 @@
 /***************************************************************
-**  İstanbul 29 Mayıs Üniversitesi
-**  Bilgisayar ve Bilişim Bilimleri Fakültesi
-**  Büyük Veri Analistliği Programı
-**  Programlamaya Giriş Dersi Projesi
+**  Ä°stanbul 29 MayÄ±s Ãœniversitesi
+**  Bilgisayar ve BiliÅŸim Bilimleri FakÃ¼ltesi
+**  BÃ¼yÃ¼k Veri AnalistliÄŸi ProgramÄ±
+**  Programlamaya GiriÅŸ Dersi Projesi
 **
-**  Öğrenci Adı     : Kerem Paralı
-**  Öğrenci No      : 300125024
+**  Ã–ÄŸrenci AdÄ±     : Kerem ParalÄ±
+**  Ã–ÄŸrenci No      : 300125024
 **
-**  Bu program basit bir otel otomasyonu mantığıyla
-**  oda, müşteri ve oda kayıt işlemlerini yapmaktadır.
+**  Bu program basit bir otel otomasyonu mantÄ±ÄŸÄ±yla
+**  oda, mÃ¼ÅŸteri ve oda kayÄ±t iÅŸlemlerini yapmaktadÄ±r.
 ***************************************************************/
 
-#include <iostream>   // Ekrana yazdırma ve klavyeden veri alma
-#include <fstream>    // Dosya işlemleri
+#include <iostream>   // Ekrana yazdÄ±rma ve klavyeden veri alma
+#include <fstream>    // Dosya iÅŸlemleri
 #include <string>     // String veri tipi
 
 using namespace std;
 
-/* ODA bilgilerini tutan yapı */
+/* ODA bilgilerini tutan yapÄ± */
 struct Oda
 {
-    int odaNo;     // Odanın numarası
-    int ucret;     // Odanın gecelik ücreti
-    bool doluMu;   // Odanın dolu olup olmadığı
+    int odaNo;     // OdanÄ±n numarasÄ±
+    int ucret;     // OdanÄ±n gecelik Ã¼creti
+    bool doluMu;   // OdanÄ±n dolu olup olmadÄ±ÄŸÄ±
 };
 
-/* MUSTERI bilgilerini tutan yapı */
+/* MUSTERI bilgilerini tutan yapÄ± */
 struct Musteri
 {
-    int musteriNo; // Müşteri numarası
-    string ad;     // Müşteri adı
-    string soyad;  // Müşteri soyadı
-    string tc;     // TC kimlik numarası
+    int musteriNo; // MÃ¼ÅŸteri numarasÄ±
+    string ad;     // MÃ¼ÅŸteri adÄ±
+    string soyad;  // MÃ¼ÅŸteri soyadÄ±
+    string tc;     // TC kimlik numarasÄ±
 };
 
-/* Yeni oda kaydı alan fonksiyon */
+/* Yeni oda kaydÄ± alan fonksiyon */
 void OdaEkle()
 {
     Oda oda;
-    ofstream dosya("odalar.txt", ios::app); // Dosya ekleme modunda açılır
+    ofstream dosya("odalar.txt", ios::app); // Dosya ekleme modunda aÃ§Ä±lÄ±r
 
     cout << "Oda Numarasi : ";
     cin >> oda.odaNo;
@@ -46,9 +46,9 @@ void OdaEkle()
     cout << "Oda Ucreti   : ";
     cin >> oda.ucret;
 
-    oda.doluMu = false; // Yeni eklenen oda boş kabul edilir
+    oda.doluMu = false; // Yeni eklenen oda boÅŸ kabul edilir
 
-    // Oda bilgileri dosyaya yazılır
+    // Oda bilgileri dosyaya yazÄ±lÄ±r
     dosya << oda.odaNo << " "
         << oda.ucret << " "
         << oda.doluMu << endl;
@@ -57,7 +57,7 @@ void OdaEkle()
     cout << "Oda basariyla eklendi.\n";
 }
 
-/* Kayıtlı odaları ekranda listeleyen fonksiyon */
+/* KayÄ±tlÄ± odalarÄ± ekranda listeleyen fonksiyon */
 void OdalariListele()
 {
     Oda oda;
@@ -77,7 +77,7 @@ void OdalariListele()
     dosya.close();
 }
 
-/* Yeni müşteri kaydı alan fonksiyon */
+/* Yeni mÃ¼ÅŸteri kaydÄ± alan fonksiyon */
 void MusteriEkle()
 {
     Musteri m;
@@ -95,7 +95,7 @@ void MusteriEkle()
     cout << "TC No      : ";
     cin >> m.tc;
 
-    // Müşteri bilgileri dosyaya yazılır
+    // MÃ¼ÅŸteri bilgileri dosyaya yazÄ±lÄ±r
     dosya << m.musteriNo << " "
         << m.ad << " "
         << m.soyad << " "
@@ -105,7 +105,7 @@ void MusteriEkle()
     cout << "Musteri eklendi.\n";
 }
 
-/* Müşterileri listeleyen fonksiyon */
+/* MÃ¼ÅŸterileri listeleyen fonksiyon */
 void MusterileriListele()
 {
     // Dosyadan daha once kaydedilen bilgileri okumak icin ifstream kullaniyoruz
@@ -126,7 +126,7 @@ void MusterileriListele()
     dosya.close();
 }
 
-/* Odaya müşteri atama işlemi */
+/* Odaya mÃ¼ÅŸteri atama iÅŸlemi */
 void OdaKaydiYap()
 {
     int odaNo, musteriNo;
@@ -138,14 +138,14 @@ void OdaKaydiYap()
     cout << "Musteri Numarasi : ";
     cin >> musteriNo;
 
-    // Oda ve müşteri eşleştirmesi kaydedilir
+    // Oda ve mÃ¼ÅŸteri eÅŸleÅŸtirmesi kaydedilir
     dosya << odaNo << " " << musteriNo << endl;
 
     dosya.close();
     cout << "Oda kaydi basariyla yapildi.\n";
 }
 
-/* Yapılan oda kayıtlarını listeleyen fonksiyon */
+/* YapÄ±lan oda kayÄ±tlarÄ±nÄ± listeleyen fonksiyon */
 void KayitlariListele()
 {
     int odaNo, musteriNo;
@@ -168,7 +168,7 @@ int main()
 
     do
     {
-        // Ana menü
+        // Ana menÃ¼
         cout << "\nOtel Islemleri\n";
         cout << "------------------\n";
         cout << "1- Oda Islemleri\n";
