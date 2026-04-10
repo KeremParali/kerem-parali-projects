@@ -1,0 +1,41 @@
+/****************************************************************************************
+**
+**  İSTANBUL 29 MAYIS ÜNİVERSİTESİ
+**  BİLİŞİM TEKNOLOJİLERİ MESLEK YÜKSEKOKULU
+**  BÜYÜK VERİ ANALİSTLİĞİ PR.
+**  PROGRAMLAMAYA GİRİŞ DERSİ
+**  2025-2026 GÜZ DÖNEMİ
+**
+**  ÖDEV NUMARASI : SORU 4
+**  ÖĞRENCİ ADI SOYADI : Kerem PARALI
+**  ÖĞRENCİ NUMARASI : 300125024
+**
+****************************************************************************************/
+
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+int x = 8, y = 2;
+// x ve y değişkenlerini başlangıç değerleriyle tanımladım
+
+x *= y + 1;
+// Önce y+1 hesaplanır (3)
+// x = 8 * 3 olur ve x 24’e eşitlenir
+
+cout << x / y << endl;
+// 24 / 2 işlemi yapılır ve 12 ekrana yazdırılır
+
+cout << ++x << endl;
+// x önce 1 artırılır, sonra ekrana yazdırılır (25)
+
+cout << x << endl;
+// x’in güncel değeri tekrar yazdırılır (25)
+
+
+return 0;
+}
+
