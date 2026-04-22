@@ -1,0 +1,236 @@
+/***************************************************************
+**  Ýstanbul 29 Mayýs Üniversitesi
+**  Bilgisayar ve Biliþim Bilimleri Fakültesi
+**  Büyük Veri Analistliði Programý
+**  Programlamaya Giriþ Dersi Projesi
+**
+**  Öðrenci Adý     : Kerem Paralý
+**  Öðrenci No      : 300125024
+**
+**  Bu program basit bir otel otomasyonu mantýðýyla
+**  oda, müþteri ve oda kayýt iþlemlerini yapmaktadýr.
+***************************************************************/
+
+#include <iostream>   // Ekrana yazdýrma ve klavyeden veri alma
+#include <fstream>    // Dosya iþlemleri
+#include <string>     // String veri tipi
+
+using namespace std;
+
+/* ODA bilgilerini tutan yapý */
+struct Oda
+{
+    int odaNo;     // Odanýn numarasý
+    int ucret;     // Odanýn gecelik ücreti
+    bool doluMu;   // Odanýn dolu olup olmadýðý
+};
+
+/* MUSTERI bilgilerini tutan yapý */
+struct Musteri
+{
+    int musteriNo; // Müþteri numarasý
+    string ad;     // Müþteri adý
+    string soyad;  // Müþteri soyadý
+    string tc;     // TC kimlik numarasý
+};
+
+/* Yeni oda kaydý alan fonksiyon */
+void OdaEkle()
+{
+    Oda oda;
+    ofstream dosya("odalar.txt", ios::app); // Dosya ekleme modunda açýlýr
+
+    cout << "Oda Numarasi : ";
+    cin >> oda.odaNo;
+
+    cout << "Oda Ucreti   : ";
+    cin >> oda.ucret;
+
+    oda.doluMu = false; // Yeni eklenen oda boþ kabul edilir
+
+    // Oda bilgileri dosyaya yazýlýr
+    dosya << oda.odaNo << " "
+        << oda.ucret << " "
+        << oda.doluMu << endl;
+
+    dosya.close();
+    cout << "Oda basariyla eklendi.\n";
+}
+
+/* Kayýtlý odalarý ekranda listeleyen fonksiyon */
+void OdalariListele()
+{
+    Oda oda;
+    ifstream dosya("odalar.txt");
+
+    cout << "\nOdaNo  Ucret  Durum\n";
+    cout << "-------------------\n";
+
+    // Dosyanin sonuna kadar tum kayitlari okumak icin while dongusu kullanildi
+    while (dosya >> oda.odaNo >> oda.ucret >> oda.doluMu)
+    {
+        cout << oda.odaNo << "    "
+            << oda.ucret << "    "
+            << (oda.doluMu ? "Dolu" : "Bos") << endl;
+    }
+
+    dosya.close();
+}
+
+/* Yeni müþteri kaydý alan fonksiyon */
+void MusteriEkle()
+{
+    Musteri m;
+    ofstream dosya("musteriler.txt", ios::app);
+
+    cout << "Musteri No : ";
+    cin >> m.musteriNo;
+
+    cout << "Ad         : ";
+    cin >> m.ad;
+
+    cout << "Soyad      : ";
+    cin >> m.soyad;
+
+    cout << "TC No      : ";
+    cin >> m.tc;
+
+    // Müþteri bilgileri dosyaya yazýlýr
+    dosya << m.musteriNo << " "
+        << m.ad << " "
+        << m.soyad << " "
+        << m.tc << endl;
+
+    dosya.close();
+    cout << "Musteri eklendi.\n";
+}
+
+/* Müþterileri listeleyen fonksiyon */
+void MusterileriListele()
+{
+    // Dosyadan daha once kaydedilen bilgileri okumak icin ifstream kullaniyoruz
+    Musteri m;
+    ifstream dosya("musteriler.txt");
+
+    cout << "\nNo  Ad  Soyad  TC\n";
+    cout << "-----------------\n";
+
+    while (dosya >> m.musteriNo >> m.ad >> m.soyad >> m.tc)
+    {
+        cout << m.musteriNo << "  "
+            << m.ad << "  "
+            << m.soyad << "  "
+            << m.tc << endl;
+    }
+
+    dosya.close();
+}
+
+/* Odaya müþteri atama iþlemi */
+void OdaKaydiYap()
+{
+    int odaNo, musteriNo;
+    ofstream dosya("kayitlar.txt", ios::app);
+
+    cout << "Oda Numarasi     : ";
+    cin >> odaNo;
+
+    cout << "Musteri Numarasi : ";
+    cin >> musteriNo;
+
+    // Oda ve müþteri eþleþtirmesi kaydedilir
+    dosya << odaNo << " " << musteriNo << endl;
+
+    dosya.close();
+    cout << "Oda kaydi basariyla yapildi.\n";
+}
+
+/* Yapýlan oda kayýtlarýný listeleyen fonksiyon */
+void KayitlariListele()
+{
+    int odaNo, musteriNo;
+    ifstream dosya("kayitlar.txt");
+
+    cout << "\nOdaNo  MusteriNo\n";
+    cout << "----------------\n";
+
+    while (dosya >> odaNo >> musteriNo)
+    {
+        cout << odaNo << "      " << musteriNo << endl;
+    }
+
+    dosya.close();
+}
+
+int main()
+{
+    int secim, altSecim;
+
+    do
+    {
+        // Ana menü
+        cout << "\nOtel Islemleri\n";
+        cout << "------------------\n";
+        cout << "1- Oda Islemleri\n";
+        cout << "2- Musteri Islemleri\n";
+        cout << "3- Oda Kayit Islemleri\n";
+        cout << "99- Cikis\n";
+        cout << "Seciminiz : ";
+        cin >> secim;
+
+        switch (secim)
+        {
+        case 1:
+            cout << "\n1- Oda Ekle\n";
+            cout << "2- Odalari Listele\n";
+            cout << "99- Ust Menu\n";
+            cin >> altSecim;
+
+            if (altSecim == 1)
+                OdaEkle();
+            else if (altSecim == 2)
+                OdalariListele();
+            else if (altSecim != 99)
+                cout << "Hatali Secim\n";
+            break;
+
+        case 2:
+            cout << "\n1- Musteri Ekle\n";
+            cout << "2- Musterileri Listele\n";
+            cout << "99- Ust Menu\n";
+            cin >> altSecim;
+
+            if (altSecim == 1)
+                MusteriEkle();
+            else if (altSecim == 2)
+                MusterileriListele();
+            else if (altSecim != 99)
+                cout << "Hatali Secim\n";
+            break;
+
+        case 3:
+            cout << "\n1- Odaya Musteri Ata\n";
+            cout << "2- Kayitlari Listele\n";
+            cout << "99- Ust Menu\n";
+            cin >> altSecim;
+
+            if (altSecim == 1)
+                OdaKaydiYap();
+            else if (altSecim == 2)
+                KayitlariListele();
+            else if (altSecim != 99)
+                cout << "Hatali Secim\n";
+            break;
+
+        case 99:
+            cout << "Programdan cikiliyor...\n";
+            break;
+
+        default:
+            cout << "Hatali Secim\n";
+        }
+
+    } while (secim != 99);
+
+    return 0;
+}
